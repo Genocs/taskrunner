@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Genocs.TaskRunner.Service": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "ENVIRONMENT": "Development"
+      }
+    }
+  }
+}

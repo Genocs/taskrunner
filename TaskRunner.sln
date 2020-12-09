@@ -1,0 +1,47 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30621.155
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Genocs.TaskRunner.Service", "src\Genocs.TaskRunner.Service\Genocs.TaskRunner.Service.csproj", "{2A3140EA-2FB2-4982-AF14-E9DC66D1D1FE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2DB20E67-904A-4146-A38C-E8DB4F458A5C}"
+	ProjectSection(SolutionItems) = preProject
+		Dockerfile = Dockerfile
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{0B10A889-9683-4C1B-82BC-141994066C34}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Genocs.TaskRunner.Service.Tests", "src\Genocs.TaskRunner.Service.Tests\Genocs.TaskRunner.Service.Tests.csproj", "{4D0C1CF0-61B4-451E-B3C4-D5AFF308B657}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Genocs.TaskRunner.Messages", "src\Genocs.TaskRunner.Messages\Genocs.TaskRunner.Messages.csproj", "{151A71F6-2F75-4BB6-8CE3-582C082D7B6E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2A3140EA-2FB2-4982-AF14-E9DC66D1D1FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A3140EA-2FB2-4982-AF14-E9DC66D1D1FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A3140EA-2FB2-4982-AF14-E9DC66D1D1FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A3140EA-2FB2-4982-AF14-E9DC66D1D1FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D0C1CF0-61B4-451E-B3C4-D5AFF308B657}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D0C1CF0-61B4-451E-B3C4-D5AFF308B657}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D0C1CF0-61B4-451E-B3C4-D5AFF308B657}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D0C1CF0-61B4-451E-B3C4-D5AFF308B657}.Release|Any CPU.Build.0 = Release|Any CPU
+		{151A71F6-2F75-4BB6-8CE3-582C082D7B6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{151A71F6-2F75-4BB6-8CE3-582C082D7B6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{151A71F6-2F75-4BB6-8CE3-582C082D7B6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{151A71F6-2F75-4BB6-8CE3-582C082D7B6E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{4D0C1CF0-61B4-451E-B3C4-D5AFF308B657} = {0B10A889-9683-4C1B-82BC-141994066C34}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2EB1F9E1-9576-495A-AE70-258803ADBE9E}
+	EndGlobalSection
+EndGlobal
