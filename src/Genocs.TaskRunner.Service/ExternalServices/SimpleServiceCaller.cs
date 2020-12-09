@@ -8,25 +8,25 @@ using Genocs.TaskRunner.Messages.Messages;
 
 namespace Genocs.TaskRunner.Service.ExternalServices
 {
-    public class ValidationServiceCaller : IValidationServiceCaller
+    public class SimpleServiceCaller : ISimpleServiceCaller
     {
         private readonly HttpClient _httpClient;
 
-        public ValidationServiceCaller(HttpClient httpClient)
+        public SimpleServiceCaller(HttpClient httpClient)
         {
             _httpClient = httpClient;
         }
 
-        public async Task<ChangeStatusSchedule> ChangeTransactionStatusAsync(SimpleMessage transactionRequest, string transactionId)
+        public async Task<ChangeStatusSchedule> ChangeTransactionStatusAsync(SimpleMessage simpleMessage, string transactionId)
         {
             try
             {
-                var request = CreateChangeStatusSchedule(transactionRequest, transactionId);
+                var request = CreateChangeStatusSchedule(simpleMessage, transactionId);
 
-                //var response = await _httpClient.PostAsJsonAsync($"weatherforecast/{transactionRequest.TransactionId}/updatetransactionrequests", request);
+                var response = await _httpClient.PostAsJsonAsync($"weatherforecast/{simpleMessage.MessageId}/updatetransactionrequests", request);
                 
-                var content = PackageContent(transactionRequest);
-                var response = await _httpClient.PostAsync($"UTU.TaxFree.Host.Validation/transactionsdigitalelaboratedcommand", content);
+                //var content = PackageContent(transactionRequest);
+                //var response = await _httpClient.PostAsync($"UTU.TaxFree.Host.Validation/transactionsdigitalelaboratedcommand", content);
 
 
                 if (response.IsSuccessStatusCode)

@@ -4,7 +4,7 @@ using Genocs.TaskRunner.Service.Models;
 
 namespace Genocs.TaskRunner.Service.ExternalServices
 {
-    public interface IValidationServiceCaller
+    public interface ISimpleServiceCaller
     {
         Task<ChangeStatusSchedule> ChangeTransactionStatusAsync(SimpleMessage simpleMessage, string transactionId);
     }
