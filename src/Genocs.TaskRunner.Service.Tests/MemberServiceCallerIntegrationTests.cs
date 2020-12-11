@@ -18,7 +18,7 @@ using Xunit;
 
 namespace Genocs.TaskRunner.Service.Tests
 {
-    public class MemberServiceCallerIntegrationTests : IDisposable, IClassFixture<ResiliencyEnvironmentVariablesFixture>
+    public class SimpleServiceCallerIntegrationTests : IDisposable, IClassFixture<ResiliencyEnvironmentVariablesFixture>
     {
         private const string PackageHost = "packagehost";
         private static readonly string PackageUri = $"http://{PackageHost}/api/packages/";
@@ -26,9 +26,9 @@ namespace Genocs.TaskRunner.Service.Tests
         private readonly TestServer _testServer;
         private RequestDelegate _handleHttpRequest = ctx => Task.CompletedTask;
 
-        private readonly IMemberServiceCaller _caller;
+        private readonly ISimpleServiceCaller _caller;
 
-        public MemberServiceCallerIntegrationTests()
+        public SimpleServiceCallerIntegrationTests()
         {
             var context = new HostBuilderContext(new Dictionary<object, object>());
             context.Configuration =
@@ -62,7 +62,7 @@ namespace Genocs.TaskRunner.Service.Tests
                     sp => new TestServerMessageHandlerBuilder(_testServer)));
             var serviceProvider = serviceCollection.BuildServiceProvider();
 
-            _caller = serviceProvider.GetService<IMemberServiceCaller>();
+            _caller = serviceProvider.GetService<ISimpleServiceCaller>();
         }
 
         public void Dispose()

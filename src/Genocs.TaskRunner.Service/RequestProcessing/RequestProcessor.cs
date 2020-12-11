@@ -10,14 +10,14 @@ namespace Genocs.TaskRunner.Service.RequestProcessing
     public class RequestProcessor : IRequestProcessor
     {
         private readonly ILogger<RequestProcessor> _logger;
-        private readonly IValidationServiceCaller _validationServiceCaller;
+        private readonly ISimpleServiceCaller _simpleServiceCaller;
 
         public RequestProcessor(
             ILogger<RequestProcessor> logger,
-            IValidationServiceCaller validationServiceCaller)
+            ISimpleServiceCaller simpleServiceCaller)
         {
             _logger = logger;
-            _validationServiceCaller = validationServiceCaller;
+            _simpleServiceCaller = simpleServiceCaller;
         }
 
         public async Task<bool> ProcessSimpleMessageAsync(SimpleMessage message, IReadOnlyDictionary<string, object> properties)
@@ -26,7 +26,7 @@ namespace Genocs.TaskRunner.Service.RequestProcessing
 
             try
             {
-                var requestStatus = await _validationServiceCaller.ChangeTransactionStatusAsync(message, null);
+                var requestStatus = await _simpleServiceCaller.GetSimpleModelAsync("10");
                 if (requestStatus != null)
                 {
                     _logger.LogInformation("Completed change transaction status request {MessageId}", message.MessageId);

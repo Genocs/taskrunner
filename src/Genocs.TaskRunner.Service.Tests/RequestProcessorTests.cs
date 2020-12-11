@@ -8,8 +8,8 @@ namespace Genocs.TaskRunner.Service.Tests
 {
     public class RequestProcessorTests
     {
-        private readonly Mock<IMemberServiceCaller> _memberServiceCallerMock;
-        private readonly Mock<IValidationServiceCaller> _validationServiceCallerMock;
+        private readonly Mock<ISimpleServiceCaller> _simpleServiceCallerMock;
+        private readonly Mock<ISimpleAuthServiceCaller> _simpleAuthServiceCallerMock;
         private readonly RequestProcessor _processor;
 
         public RequestProcessorTests()
@@ -18,13 +18,13 @@ namespace Genocs.TaskRunner.Service.Tests
             servicesBuilder.AddLogging(logging => logging.AddDebug());
             var services = servicesBuilder.BuildServiceProvider();
 
-            _memberServiceCallerMock = new Mock<IMemberServiceCaller>();
-            _validationServiceCallerMock = new Mock<IValidationServiceCaller>();
+            _simpleServiceCallerMock = new Mock<ISimpleServiceCaller>();
+            _simpleAuthServiceCallerMock = new Mock<ISimpleAuthServiceCaller>();
 
             _processor =
                 new RequestProcessor(
                     services.GetService<ILogger<RequestProcessor>>(),
-                    _validationServiceCallerMock.Object);
+                    _simpleServiceCallerMock.Object);
         }
 
         //[Fact]

@@ -26,7 +26,7 @@ namespace Genocs.TaskRunner.Service.Tests
         private readonly TestServer _testServer;
         private RequestDelegate _handleHttpRequest = ctx => Task.CompletedTask;
 
-        private readonly IValidationServiceCaller _caller;
+        private readonly ISimpleAuthServiceCaller _caller;
 
         public ValidationServiceCallerIntegrationTests()
         {
@@ -62,7 +62,7 @@ namespace Genocs.TaskRunner.Service.Tests
                     sp => new TestServerMessageHandlerBuilder(_testServer)));
             var serviceProvider = serviceCollection.BuildServiceProvider();
 
-            _caller = serviceProvider.GetService<IValidationServiceCaller>();
+            _caller = serviceProvider.GetService<ISimpleAuthServiceCaller>();
         }
 
         public void Dispose()

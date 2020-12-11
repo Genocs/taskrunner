@@ -13,26 +13,23 @@ namespace Genocs.TaskRunner.Service.ExternalServices
         private readonly HttpClient _httpClient;
 
         public SimpleServiceCaller(HttpClient httpClient)
-        {
-            _httpClient = httpClient;
-        }
+            => _httpClient = httpClient;
 
-        public async Task<ChangeStatusSchedule> ChangeTransactionStatusAsync(SimpleMessage simpleMessage, string transactionId)
+        public async Task<SimpleResult> GetSimpleModelAsync(string id)
         {
             try
             {
-                var request = CreateChangeStatusSchedule(simpleMessage, transactionId);
+                //var request = CreateChangeStatusSchedule(simpleMessage, transactionId);
 
-                var response = await _httpClient.PostAsJsonAsync($"weatherforecast/{simpleMessage.MessageId}/updatetransactionrequests", request);
-                
                 //var content = PackageContent(transactionRequest);
                 //var response = await _httpClient.PostAsync($"UTU.TaxFree.Host.Validation/transactionsdigitalelaboratedcommand", content);
 
-
+                var response = await _httpClient.GetAsync($"api/Dummy/{id}");
                 if (response.IsSuccessStatusCode)
                 {
-                    return await response.Content.ReadAsAsync<ChangeStatusSchedule>();
+                    return await response.Content.ReadAsAsync<SimpleResult>();
                 }
+
 
                 throw new BackendServiceCallFailedException(response.ReasonPhrase);
             }

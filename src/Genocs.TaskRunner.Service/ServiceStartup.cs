@@ -42,7 +42,7 @@ namespace Genocs.TaskRunner.Service
 
             // Register simple API client 
             services
-                .AddHttpClient<IMemberServiceCaller, MemberServiceCaller>(c =>
+                .AddHttpClient<ISimpleServiceCaller, SimpleServiceCaller>(c =>
                 {
                     c.BaseAddress = new Uri(context.Configuration["SERVICE_URI_SIMPLE"]);
                 })
@@ -50,7 +50,7 @@ namespace Genocs.TaskRunner.Service
 
             // Register Auth API client
             services
-                .AddHttpClient<IValidationServiceCaller, ValidationServiceCaller>(c =>
+                .AddHttpClient<ISimpleAuthServiceCaller, SimpleAuthServiceCaller>(c =>
                 {
                     c.BaseAddress = new Uri(context.Configuration["SERVICE_URI_AUTHORIZED"]);
                     c.DefaultRequestHeaders.Add("Authorization", "bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzUxMiIsImtpZCI6InN2YiJ9.eyJzdWIiOjEsImlhdCI6MTYwNDY1MzIzNiwiZXhwIjoxNjA0NzM5NjM2LCJlbWFpbCI6ImFkbWluQHV0dS5nbG9iYWwiLCJnaXZlbl9uYW1lIjoiQWRtaW4iLCJmYW1pbHlfbmFtZSI6IkFkbWluIiwicHJlZmVycmVkX3VzZXJuYW1lIjoiYWRtaW4iLCJyb2xlcyI6WyJBZG1pbiIsIk1hbmFnZXIiLCJNZW1iZXIiXX0.WV4wEQxyp7tFTFMO-udiVgMrWLx48bDIQ5eZNR85AcPU57GxszUgSkHlTQqAC4GVtGj53ZAyMKPBZn1qt_WCpYrF9DSX5qRVMgflx7e3ZBtzqrDfbINUZQOF5KnNH5pEKUehXG4kLVLz0q7XhtNIkBchmrOAYXIU-rX9lej4Zbc");

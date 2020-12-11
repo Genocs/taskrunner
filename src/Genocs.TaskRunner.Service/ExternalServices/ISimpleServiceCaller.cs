@@ -1,11 +1,10 @@
-﻿using System.Threading.Tasks;
-using Genocs.TaskRunner.Messages.Messages;
-using Genocs.TaskRunner.Service.Models;
+﻿using Genocs.TaskRunner.Service.Models;
+using System.Threading.Tasks;
 
 namespace Genocs.TaskRunner.Service.ExternalServices
 {
     public interface ISimpleServiceCaller
     {
-        Task<ChangeStatusSchedule> ChangeTransactionStatusAsync(SimpleMessage simpleMessage, string transactionId);
+       Task<SimpleResult> GetSimpleModelAsync(string id);
     }
 }

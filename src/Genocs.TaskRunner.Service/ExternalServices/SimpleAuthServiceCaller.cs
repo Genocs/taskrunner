@@ -1,18 +1,21 @@
-﻿using System;
-using System.Net;
+﻿using Genocs.TaskRunner.Messages.Messages;
+using Genocs.TaskRunner.Service.Models;
+using System;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Genocs.TaskRunner.Service.Models;
 
 namespace Genocs.TaskRunner.Service.ExternalServices
 {
-    public class MemberServiceCaller : IMemberServiceCaller
+    public class SimpleAuthServiceCaller : ISimpleAuthServiceCaller
     {
         private readonly HttpClient _httpClient;
 
-        public MemberServiceCaller(HttpClient httpClient)
+        public SimpleAuthServiceCaller(HttpClient httpClient)
+            => _httpClient = httpClient;
+
+        public Task<ChangeStatusSchedule> ChangeTransactionStatusAsync(SimpleMessage simpleMessage, string transactionId)
         {
-            _httpClient = httpClient;
+            throw new NotImplementedException();
         }
 
         //public async Task<PackageGen> UpsertPackageAsync(PackageInfo packageInfo)
