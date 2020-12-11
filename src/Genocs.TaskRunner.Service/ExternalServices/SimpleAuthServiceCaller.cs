@@ -1,6 +1,9 @@
 ﻿using Genocs.TaskRunner.Messages.Messages;
+using Genocs.TaskRunner.Service.Exceptions;
 using Genocs.TaskRunner.Service.Models;
+using Newtonsoft.Json;
 using System;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -13,57 +16,77 @@ namespace Genocs.TaskRunner.Service.ExternalServices
         public SimpleAuthServiceCaller(HttpClient httpClient)
             => _httpClient = httpClient;
 
-        public Task<ChangeStatusSchedule> ChangeTransactionStatusAsync(SimpleMessage simpleMessage, string transactionId)
+        public async Task<SimpleResult> GetSimpleAuthModelAsync(string id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var request = CreateChangeStatusSchedule(id);
+                var content = PackageContent(request);
+                var response = await _httpClient.PostAsync($"Authorized/{id}", content);
+                if (response.StatusCode == HttpStatusCode.Created)
+                {
+                    return await response.Content.ReadAsAsync<SimpleResult>();
+                }
+                else if (response.StatusCode == HttpStatusCode.NoContent)
+                {
+                    return await this.GetPackageAsync(id);
+                }
+
+                throw new BackendServiceCallFailedException(response.ReasonPhrase);
+            }
+            catch (BackendServiceCallFailedException)
+            {
+                throw;
+            }
+            catch (Exception e)
+            {
+                throw new BackendServiceCallFailedException(e.Message, e);
+            }
         }
 
-        //public async Task<PackageGen> UpsertPackageAsync(PackageInfo packageInfo)
-        //{
-        //    try
-        //    {
-        //        var response = await _httpClient.PutAsJsonAsync($"{packageInfo.PackageId}", packageInfo);
-        //        if (response.StatusCode == HttpStatusCode.Created)
-        //        {
-        //            return await response.Content.ReadAsAsync<PackageGen>();
-        //        }
-        //        else if (response.StatusCode == HttpStatusCode.NoContent)
-        //        {
-        //            return  await this.GetPackageAsync(packageInfo.PackageId);
-        //        }
+        private async Task<SimpleResult> GetPackageAsync(string messageId)
+        {
+            try
+            {
+                var request = CreateChangeStatusSchedule(messageId);
+                var content = PackageContent(request);
+                var response = await _httpClient.PutAsJsonAsync($"Authorized/{messageId}", content);
 
-        //        throw new BackendServiceCallFailedException(response.ReasonPhrase);
-        //    }
-        //    catch (BackendServiceCallFailedException)
-        //    {
-        //        throw;
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        throw new BackendServiceCallFailedException(e.Message, e);
-        //    }
-        //}
+                if (response.StatusCode == HttpStatusCode.OK)
+                {
+                    return await response.Content.ReadAsAsync<SimpleResult>();
+                }
 
-        //private async Task<PackageGen> GetPackageAsync(string packageId)
-        //{
-        //    try
-        //    {
-        //        var response = await _httpClient.GetAsync($"{packageId}");
-        //        if (response.StatusCode == HttpStatusCode.OK)
-        //        {
-        //            return await response.Content.ReadAsAsync<PackageGen>();
-        //        }
+                throw new BackendServiceCallFailedException(response.ReasonPhrase);
+            }
+            catch (BackendServiceCallFailedException)
+            {
+                throw;
+            }
+            catch (Exception e)
+            {
+                throw new BackendServiceCallFailedException(e.Message, e);
+            }
+        }
 
-        //        throw new BackendServiceCallFailedException(response.ReasonPhrase);
-        //    }
-        //    catch (BackendServiceCallFailedException)
-        //    {
-        //        throw;
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        throw new BackendServiceCallFailedException(e.Message, e);
-        //    }
-        //}
+        private ChangeStatusSchedule CreateChangeStatusSchedule(string messageId)
+        {
+            // Fake data 
+            ChangeStatusSchedule changeStatus = new ChangeStatusSchedule
+            {
+                MessageId = messageId,
+                StatusId = "START",
+                DateEvent = DateTime.UtcNow.ToString("yyyy-MM-dd")
+            };
+
+            return changeStatus;
+        }
+
+        private HttpContent PackageContent<T>(T transactionRequest) where T : class
+        {
+            var content = new StringContent(JsonConvert.SerializeObject(transactionRequest));
+            content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
+            return content;
+        }
     }
 }

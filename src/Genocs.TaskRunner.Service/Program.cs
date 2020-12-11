@@ -43,8 +43,10 @@ namespace Genocs.TaskRunner.Service
                     builder.AddApplicationInsights();
 
                     var serilogBuilder = new LoggerConfiguration()
-                        .ReadFrom.Configuration(context.Configuration)
-                        .WriteTo.Console(new CompactJsonFormatter());
+                                                    .ReadFrom
+                                                    .Configuration(context.Configuration)
+                                                    .WriteTo
+                                                    .Console(new CompactJsonFormatter());
 
                     builder.AddSerilog(serilogBuilder.CreateLogger(), true);
                 })

@@ -9,16 +9,16 @@ namespace Genocs.TaskRunner.ExternalWeb.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class WeatherForecastController : ControllerBase
+    public class AuthorizedController : ControllerBase
     {
         private static readonly string[] Summaries = new[]
         {
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
         };
 
-        private readonly ILogger<WeatherForecastController> _logger;
+        private readonly ILogger<AuthorizedController> _logger;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public AuthorizedController(ILogger<AuthorizedController> logger)
         {
             _logger = logger;
         }
@@ -53,11 +53,8 @@ namespace Genocs.TaskRunner.ExternalWeb.Controllers
 
     public class ChangeStatusSchedule
     {
-        public string TransactionId { get; set; }
-        public string CountryId { get; set; }
-        public string CustomsOfficeCode { get; set; }
-
-        public string CustomsStatus { get; set; }
-        public string CustomsDateEvent { get; set; }
+        public string MessageId { get; set; }
+        public string StatusId { get; set; }
+        public string DateEvent { get; set; }
     }
 }
